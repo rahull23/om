@@ -1,0 +1,124 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int top = -1;
+char stack[100];
+// to push elements in stack
+void push(char a)
+{
+      stack[top] = a;
+      top++;
+}
+// to pop elements from stack
+void pop()
+{
+      if (top == -1)
+      {
+            printf("expression is invalid\n");
+            exit(0);
+      }
+      else
+      {
+            top--;
+      }
+}
+int main()
+{
+      int i,cho;
+      char a[100];
+      printf("\tMENU");
+      printf("\n---------------------------\n");
+      printf("1.Check expression correctly parenthesized\n2.Exit\n");
+      printf("---------------------------\n");
+      while (1)
+      {
+            printf("Choose operation : ");
+            scanf("%d", &cho);
+            switch (cho)
+            {
+                  case 1:
+                        printf("\nEnter expression : ");
+                        scanf("%s",a);
+                        for (i = 0; a[i] != '\0';i++)
+                        {
+                              if (a[i] == '(')
+                              {
+                                    push(a[i]);
+                              }
+                              else if (a[i] == ')')
+                              {
+                                    pop();
+                              }
+                        }
+                        if (top == -1)
+                              printf("Expression is valid\n\n");
+                        else
+                              printf("Expression is invalid\n\n");
+                        break;
+                  case 2:
+                        exit(0);
+                  default: printf("Invalid operation...");
+            }
+      }
+      return 0;
+}
+
+
+ <!DOCTYPE html>
+<html ng-app="validationApp">
+<head>
+  <title>Username Validation</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="ValidationController">
+  <h1>Username Validation</h1>
+  
+  <form ng-submit="submitForm()" novalidate>
+    <label for="username">Username:</label>
+    <input type="text" id="username" ng-model="user.username" required><br><br>
+    
+    <label for="password">Password (min. 8 characters):</label>
+    <input type="password" id="password" ng-model="user.password" ng-minlength="8" required><br><br>
+    
+    <button type="submit">Submit</button>
+  </form>
+
+  <p ng-if="submitted && validationMessage">{{ validationMessage }}</p>
+</body>
+</html>
+
+ // app.js
+angular.module('validationApp', [])
+  .controller('ValidationController', function($scope) {
+    $scope.user = {};
+
+    $scope.submitForm = function() {
+      $scope.submitted = true;
+      $scope.validationMessage = validateUsernameAndPassword($scope.user);
+    };
+
+    function validateUsernameAndPassword(user) {
+      if (!user.username) {
+        return 'Enter username';
+      }
+
+      if (user.username.length < 3) {
+        return 'Username is too short';
+      }
+
+      if (user.username.length >= 3 && user.password.length >= 8) {
+        return 'Valid username';
+      }
+
+      return 'Password should be minimum 8 characters';
+    }
+  });
+
+
+v1 = c(5,9,3)
+  v2 = c(10,11,12,13,14,15)
+  result = array(c(v1,v2),dim = c(3,3,2))
+  print(result)
+  print(result[2,,2])
+ 

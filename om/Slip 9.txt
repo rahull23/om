@@ -1,0 +1,217 @@
+#include<stdio.h>
+int stack[20];
+int top = -1;
+
+void push(int x)
+{
+    stack[++top] = x;
+}
+
+int pop()
+{
+    return stack[top--];
+}
+
+int main()
+{
+    char exp[20];
+    char *e;
+    int n1,n2,n3,num;
+    printf("Enter the expression :: ");
+    scanf("%s",exp);
+    e = exp;
+    while(*e != '\0')
+    {
+        if(isdigit(*e))
+        {
+            num = *e - 48;
+            push(num);
+        }
+        else
+        {
+            n1 = pop();
+            n2 = pop();
+            switch(*e)
+            {
+            case '+':
+            {
+                n3 = n1 + n2;
+                break;
+            }
+            case '-':
+            {
+                n3 = n2 - n1;
+                break;
+            }
+            case '*':
+            {
+                n3 = n1 * n2;
+                break;
+            }
+            case '/':
+            {
+                n3 = n2 / n1;
+                break;
+            }
+            }
+            push(n3);
+        }
+        e++;
+    }
+    printf("\nThe result of expression %s  =  %d\n\n",exp,pop());
+    return 0;
+}
+
+
+
+
+#include<stdlib.h>
+#include<conio.h>
+#include<string.h>
+#include<stdio.h>
+struct node
+{
+	int data;
+	struct node *next;
+};
+
+void create(struct node **p,int n)
+{
+	struct node *r,*t;
+	if(*p==NULL)
+	{
+		*p=(struct node*)malloc(1*sizeof(struct node));
+		(*p)->data=n;
+		(*p)->next=NULL;
+	}
+	else
+	{
+	    
+		r=(struct node*)malloc(1*sizeof(struct node));
+     	r->data=n;
+	    r->next=NULL;
+	    t=*p;
+	    while(t->next!=NULL)
+	       {
+		      t=t->next;
+	       }
+	       t->next=r;
+	}	   	
+}
+void display(struct node*p)
+{
+	printf("Before reverse\n");
+	while(p!=NULL)
+	{
+		printf("%d ",p->data);
+		p=p->next;
+	}
+	printf("\n");
+	printf("After reverse\n");
+}
+
+int main()
+{
+    int c;
+	struct node *head;
+	head = NULL;
+	create(&head,36);
+	create(&head,56);
+	create(&head,67);
+	create(&head,78);
+	create(&head,12);
+	display(head);
+}
+
+
+
+
+<!DOCTYPE html>
+<html ng-app="employeeApp">
+<head>
+    <title>Employee Registration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+</head>
+<body ng-controller="employeeController">
+
+    <h2>Employee Registration Form</h2>
+
+    <form name="registrationForm" ng-submit="submitForm()" novalidate>
+
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" ng-model="employee.fullName" required />
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" ng-model="employee.dob" max="{{currentDate | date:'yyyy-MM-dd'}}" required />
+
+        <label for="joiningDate">Joining Date:</label>
+        <input type="date" id="joiningDate" name="joiningDate" ng-model="employee.joiningDate" max="{{currentDate | date:'yyyy-MM-dd'}}" required />
+
+        <label for="salary">Salary:</label>
+        <input type="number" id="salary" name="salary" ng-model="employee.salary" min="0" required />
+
+        <div ng-show="registrationForm.salary.$error.min">
+            Salary should be greater than or equal to 0.
+        </div>
+
+        <h3>Arithmetic Calculator</h3>
+
+        <label>
+            <input type="radio" ng-model="operator" ng-value="'add'" /> Addition
+        </label>
+        <label>
+            <input type="radio" ng-model="operator" ng-value="'subtract'" /> Subtraction
+        </label>
+        <label>
+            <input type="radio" ng-model="operator" ng-value="'multiply'" /> Multiplication
+        </label>
+        <label>
+            <input type="radio" ng-model="operator" ng-value="'divide'" /> Division
+        </label>
+
+        <input type="number" ng-model="operand1" placeholder="Operand 1" />
+        <input type="number" ng-model="operand2" placeholder="Operand 2" />
+
+        <div ng-switch="operator">
+            <div ng-switch-when="'add'">{{operand1 + operand2}}</div>
+            <div ng-switch-when="'subtract'">{{operand1 - operand2}}</div>
+            <div ng-switch-when="'multiply'">{{operand1 * operand2}}</div>
+            <div ng-switch-when="'divide'" ng-show="operand2 !== 0">{{operand1 / operand2}}</div>
+            <div ng-switch-when="'divide'" ng-show="operand2 === 0">Cannot divide by zero.</div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        var app = angular.module('employeeApp', []);
+
+        app.controller('employeeController', function ($scope) {
+            $scope.employee = {};
+            $scope.currentDate = new Date();
+            $scope.operator = 'add'; // Default operator for the calculator
+
+            $scope.submitForm = function () {
+                if ($scope.registrationForm.$valid) {
+                    // Perform actions on form submission if needed
+                    console.log("Form submitted successfully!");
+                }
+            };
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+v=c("a", "b", "a" , b", "c", "a")
+print (Orignal vector:)
+print (v)
+f = factor(v)
+print("Factor of Said Victor:")
+print(f)
+levels (f)[1]: "E"
+print(f)
+
+

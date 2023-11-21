@@ -1,0 +1,100 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int top = -1;
+char stack[100];
+// to push elements in stack
+void push(char a)
+{
+      stack[top] = a;
+      top++;
+}
+// to pop elements from stack
+void pop()
+{
+      if (top == -1)
+      {
+            printf("expression is invalid\n");
+            exit(0);
+      }
+      else
+      {
+            top--;
+      }
+}
+int main()
+{
+      int i,cho;
+      char a[100];
+      printf("\tMENU");
+      printf("\n---------------------------\n");
+      printf("1.Check expression correctly parenthesized\n2.Exit\n");
+      printf("---------------------------\n");
+      while (1)
+      {
+            printf("Choose operation : ");
+            scanf("%d", &cho);
+            switch (cho)
+            {
+                  case 1:
+                        printf("\nEnter expression : ");
+                        scanf("%s",a);
+                        for (i = 0; a[i] != '\0';i++)
+                        {
+                              if (a[i] == '(')
+                              {
+                                    push(a[i]);
+                              }
+                              else if (a[i] == ')')
+                              {
+                                    pop();
+                              }
+                        }
+                        if (top == -1)
+                              printf("Expression is valid\n\n");
+                        else
+                              printf("Expression is invalid\n\n");
+                        break;
+                  case 2:
+                        exit(0);
+                  default: printf("Invalid operation...");
+            }
+      }
+      return 0;
+}
+
+
+// app.js
+angular.module('voterApp', [])
+  .controller('VoterController', function($scope) {
+    $scope.voter = {};
+
+    $scope.submitForm = function() {
+      $scope.submitted = true;
+      $scope.isValid = validateVoterDetails($scope.voter);
+    };
+
+    function validateVoterDetails(voter) {
+      if (!voter.name || voter.name !== voter.name.toUpperCase()) {
+        return false; // Name should be in uppercase
+      }
+
+      if (voter.age < 18) {
+        return false; // Age should be 18 or above
+      }
+
+      if (voter.nationality !== 'Indian') {
+        return false; // Nationality should be Indian
+      }
+
+      return true;
+    }
+  });
+
+ print("number between 1 to 100")
+  for (n in 1:100) {
+  if (n %% 3 == 0 & n %% 5 == 0) {print("SYBBA")}
+  else if (n %% 3 == 0) {print("SY")}
+  else if (n %% 5 == 0) {print("BBA")}
+  else print(n)
+}

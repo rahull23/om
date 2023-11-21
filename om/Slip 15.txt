@@ -1,0 +1,279 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX_EXPR_SIZE 100
+
+int precedence(char operator) {
+	switch (operator) {
+		case '+':
+		case '-':
+			return 1;
+		case '*':
+		case '/':
+			return 2;
+		case '^':
+			return 3;
+		default:
+			return -1;
+	}
+}
+
+int isOperator(char ch) {
+	return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^');
+}
+
+char *infixToPostfix(char *infix) {
+	int i, j;
+	int len = strlen(infix);
+	char *postfix = (char *)malloc(sizeof(char) * (len + 2));
+	char stack[MAX_EXPR_SIZE];
+	int top = -1;
+
+	for (i = 0, j = 0; i < len; i++) {
+		if (infix[i] == ' ' || infix[i] == '\t')
+			continue;
+		if (isalnum(infix[i])) {
+			postfix[j++] = infix[i];
+		} else if (infix[i] == '(') {
+			stack[++top] = infix[i];
+		} else if (infix[i] == ')') {
+			while (top > -1 && stack[top] != '(')
+				postfix[j++] = stack[top--];
+			if (top > -1 && stack[top] != '(')
+				return "Invalid Expression";
+			else
+				top--;
+		} else if (isOperator(infix[i])) {
+			while (top > -1 && precedence(stack[top]) >= precedence(infix[i]))
+				postfix[j++] = stack[top--];
+			stack[++top] = infix[i];
+		}
+	}
+
+	while (top > -1)
+		postfix[j++] = stack[top--];
+
+	postfix[j] = '\0';
+	return postfix;
+}
+
+int main() {
+	char infix[MAX_EXPR_SIZE];
+	printf("Enter an infix expression: ");
+	gets(infix);
+	char *postfix = infixToPostfix(infix);
+	printf("Postfix expression: %s\n", postfix);
+	free(postfix);
+	return 0;
+}
+
+
+
+
+#include<stdio.h>
+#include<conio.h>
+struct list
+{
+int data;
+struct list *link;
+}*top=NULL;
+void push(int m)
+{
+struct list *tmp;
+tmp=(struct list *)malloc(sizeof(struct list));
+tmp->data=m;
+tmp->link=NULL;
+tmp->link=top;
+top=tmp;
+}
+void pop()
+{
+struct list *tmp;
+if(top==NULL)
+printf(“\n\nSTACK IS EMPTY”);
+else
+{
+tmp=top;
+printf(“\n\nDELETED IS ELEMENT %d”,tmp->data);
+top=top->link;
+free(tmp);
+}
+}
+void disp()
+{
+struct list *q;
+if(top==NULL)
+printf(“\n\nSTACK IS EMPTY”);
+else
+{
+q=top;
+while(q!=NULL)
+{
+printf(“%d->”,q->data);
+q=q->link;
+}
+}
+}
+void main()
+{
+int i,n,ch;
+clrscr();
+do
+{
+printf(“\n\nMENU”);
+printf(“\n\n1.PUSH “);
+printf(“\n\n2.POP “);
+printf(“\n\n3.DISPLAY “);
+printf(“\n\n4.EXIT”);
+printf(“\n\nENTER UR CHOICE”);
+scanf(“%d”,&ch);
+switch(ch)
+{
+case 1:
+printf(“\n\nENTER THE NUMBER”);
+scanf(“%d”,&n);
+push(n);
+break;
+case 2:
+pop();
+break;
+case 3:
+printf(“\n\nSTACK ELEMENTS ARE \n\n”);
+disp();
+break;
+case 4:
+exit(0);
+}
+}
+while(ch!=4);
+getch();
+}
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="busTicketApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Ticket Reservation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script>
+		// app.js
+
+var busTicketApp = angular.module('busTicketApp', []);
+
+busTicketApp.controller('BusTicketController', function($scope) {
+    $scope.bookingInfo = {};
+    $scope.passengers = [];
+
+    // Define source and destination stations
+    $scope.stations = ['Station A', 'Station B', 'Station C', 'Station D'];
+
+    $scope.addPassenger = function() {
+        // Add a new passenger to the list
+        $scope.passengers.push({
+            name: $scope.bookingInfo.passengerName,
+            gender: $scope.bookingInfo.passengerGender
+        });
+
+        // Clear passenger input fields
+        $scope.bookingInfo.passengerName = '';
+        $scope.bookingInfo.passengerGender = '';
+    };
+
+    $scope.bookTicket = function() {
+        // Generate e-Ticket
+        $scope.bookingInfo.eTicket = generateETicket();
+
+        // You can send the bookingInfo to a server for further processing (e.g., store in a database).
+
+        // Clear the form
+        $scope.bookingInfo = {};
+        $scope.passengers = [];
+    };
+
+    function generateETicket() {
+        // Generate a simple e-Ticket string for demonstration purposes
+        return 'Bus E-Ticket\n\n' +
+               'Name: ' + $scope.bookingInfo.name + '\n' +
+               'Address: ' + $scope.bookingInfo.address + '\n' +
+               'Contact No.: ' + $scope.bookingInfo.contactNo + '\n' +
+               'Source Station: ' + $scope.bookingInfo.sourceStation + '\n' +
+               'Destination Station: ' + $scope.bookingInfo.destinationStation + '\n' +
+               'Date of Booking: ' + $scope.bookingInfo.dateOfBooking + '\n' +
+               'Date of Journey: ' + $scope.bookingInfo.dateOfJourney + '\n' +
+               'Number of Passengers: ' + $scope.passengers.length + '\n' +
+               'Passenger Names: ' + $scope.passengers.map(passenger => passenger.name).join(', ') + '\n';
+    }
+});
+
+	</script>
+</head>
+<body>
+    <div ng-controller="BusTicketController">
+        <!-- Your form and display content will go here -->
+    </div>
+<!-- Inside the <div ng-controller="BusTicketController"> -->
+
+<form ng-submit="bookTicket()">
+    <label>Name:</label>
+    <input type="text" ng-model="bookingInfo.name" required><br>
+
+    <label>Address:</label>
+    <input type="text" ng-model="bookingInfo.address" required><br>
+
+    <label>Contact No.:</label>
+    <input type="text" ng-model="bookingInfo.contactNo" required><br>
+
+    <label>Source Station:</label>
+    <select ng-model="bookingInfo.sourceStation" ng-options="station for station in stations" required>
+        <option value="" disabled>Select Source Station</option>
+    </select><br>
+
+    <label>Destination Station:</label>
+    <input type="text" ng-model="bookingInfo.destinationStation" required><br>
+
+    <label>Date of Booking:</label>
+    <input type="date" ng-model="bookingInfo.dateOfBooking" required><br>
+
+    <label>Date of Journey:</label>
+    <input type="date" ng-model="bookingInfo.dateOfJourney" required><br>
+
+    <label>Number of Passengers:</label>
+    <input type="number" ng-model="bookingInfo.numPassengers" required><br>
+
+    <label>Passenger Name:</label>
+    <input type="text" ng-model="bookingInfo.passengerName" required><br>
+
+    <label>Passenger Gender:</label>
+    <select ng-model="bookingInfo.passengerGender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select><br>
+
+    <button type="button" ng-click="addPassenger()">Add Passenger</button>
+    <button type="submit">Book Ticket</button>
+</form>
+
+<hr>
+
+<h2>e-Ticket</h2>
+<pre>{{ bookingInfo.eTicket }}</pre>
+
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+
+L = Sample (LETTERS , size = 50 , replace = TRUE)
+print("Original Data:")
+print(L)
+f = factor(L)
+print("Original factor")
+print(f)
+print("Only find of the levels")
+print(table (L(1:5)))
+

@@ -1,0 +1,194 @@
+#include<stdio.h>
+#define MAX 100
+
+int adj[MAX][MAX]; /Adjacency matrix/
+int n;    /Number of vertices in the graph/
+
+int main()
+{
+        int max_edges,i,j,origin,destin;
+        int graph_type;
+
+        printf("\nEnter 1 for Undirected graph\nEnter 2 for Directed graph\n");
+        printf("\nEnter your choice :: ");
+        scanf("%d",&graph_type);
+
+        printf("\nEnter number of vertices :: ");
+        scanf("%d",&n);
+
+        if(graph_type==1)
+                max_edges = n*(n-1)/2;
+        else
+                max_edges = n*(n-1);
+
+        for(i=1; i<=max_edges; i++)
+        {
+                printf("\nEnter edge [ %d ] ( -1 -1 to quit ) : ",i);
+                scanf("%d %d",&origin,&destin);
+                if( (origin == -1) && (destin == -1) )
+                        break;
+                if( origin>=n || destin>=n || origin<0 || destin<0 )
+                {
+                        printf("\nInvalid vertex!\n");
+                        i--;
+                }
+                else
+                {
+                        adj[origin][destin] = 1;
+                        if( graph_type == 1) /if undirected graph/
+                                adj[destin][origin] = 1;
+                }
+        }/End of for/
+
+        printf("\nThe adjacency matrix is :: \n");
+        for(i=0; i<=n-1; i++)
+        {
+                for(j=0; j<=n-1; j++)
+                        printf("%4d",adj[i][j]);
+                printf("\n");
+        }
+}
+
+
+
+
+#include<stdio.h>
+int main(){
+   int a[50], i,j,n,t,min;
+   printf("enter the number of elements in the list:\n");
+   scanf("%d", &n);
+   printf("enter the elements:\n");
+   for(i=0; i<n; i++){
+      scanf ("%d", &a[i]);
+   }
+   printf("Before  sorting the elements are:\n");
+   for(i=0; i<n; i++)
+      printf("%d \t\n", a[i]);
+
+//Sorting the elements using loop
+   for (i=0; i<n-1; i++)
+   {
+	min=i;
+      for (j=i+1; j<n; j++)
+      {
+	 if (a[j] < a[min])
+	 {
+	   min=j;
+	   }
+
+       }
+	   t = a[i];
+	    a[i] = a[min];
+	    a[min] = t;
+
+
+      }
+
+
+   printf ("after selection sorting the elements are:\n");
+   for (i=0; i<n; i++)
+      printf("%d\t", a[i]);
+   return 0;
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html ng-app="customerRegistrationApp">
+<head>
+    <title>Customer Registration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.min.js"></script>
+</head>
+<body>
+
+    <div ng-view>
+</div><h2>Customer Registration Form</h2>
+
+<form name="registrationForm" ng-submit="submitForm()" novalidate>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" ng-model="customer.name" required />
+
+    <label for="contactNo">Contact Number:</label>
+    <input type="tel" id="contactNo" name="contactNo" ng-model="customer.contactNo" required />
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" ng-model="customer.gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+
+    <label for="favoriteItem">Favorite Item:</label>
+    <select id="favoriteItem" name="favoriteItem" ng-model="customer.favoriteItem" required>
+        <option ng-repeat="item in items" value="{{item.name}}">{{item.name}}</option>
+    </select>
+
+    <label for="suggestions">Suggestions:</label>
+    <textarea id="suggestions" name="suggestions" ng-model="customer.suggestions"></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+
+<h3>Bill</h3>
+
+<p>Total Items: {{calculateTotal().totalItems}}</p>
+<p>Total Amount: ${{calculateTotal().totalAmount | currency}}</p>
+
+    <script>
+        var app = angular.module('customerRegistrationApp', ['ngRoute']);
+
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'customer-registration-form.html',
+                    controller: 'CustomerRegistrationController'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+        });
+
+        app.controller('CustomerRegistrationController', function ($scope) {
+            $scope.customer = {};
+            $scope.items = [
+                { name: 'Item A', price: 10, quantity: 0 },
+                { name: 'Item B', price: 20, quantity: 0 },
+                { name: 'Item C', price: 15, quantity: 0 },
+                // Add more items as needed
+            ];
+
+            $scope.calculateTotal = function () {
+                var totalItems = $scope.items.reduce(function (total, item) {
+                    return total + item.quantity;
+                }, 0);
+
+                var totalAmount = $scope.items.reduce(function (total, item) {
+                    return total + item.quantity * item.price;
+                }, 0);
+
+                return { totalItems: totalItems, totalAmount: totalAmount };
+            };
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+multipliacation_table <- function(num)
+{
+	for(i in 1:10)
+		{
+			result<-num*i
+			cat(num,"x",i,"=",result,"\n")
+		}
+}
+multiplication_table(5)
+
+

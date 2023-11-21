@@ -1,0 +1,227 @@
+include<stdio.h>
+int stack[20];
+int top = -1;
+
+void push(int x)
+{
+    stack[++top] = x;
+}
+
+int pop()
+{
+    return stack[top--];
+}
+
+int main()
+{
+    char exp[20];
+    char *e;
+    int n1,n2,n3,num;
+    printf("Enter the expression :: ");
+    scanf("%s",exp);
+    e = exp;
+    while(*e != '\0')
+    {
+        if(isdigit(*e))
+        {
+            num = *e - 48;
+            push(num);
+        }
+        else
+        {
+            n1 = pop();
+            n2 = pop();
+            switch(*e)
+            {
+            case '+':
+            {
+                n3 = n1 + n2;
+                break;
+            }
+            case '-':
+            {
+                n3 = n2 - n1;
+                break;
+            }
+            case '*':
+            {
+                n3 = n1 * n2;
+                break;
+            }
+            case '/':
+            {
+                n3 = n2 / n1;
+                break;
+            }
+            }
+            push(n3);
+        }
+        e++;
+    }
+    printf("\nThe result of expression %s  =  %d\n\n",exp,pop());
+    return 0;
+}
+
+
+
+
+
+
+include<stdio.h>
+#include<string.h>
+
+typedef struct city
+{
+                char name[30];
+                int code;
+}record;
+record city[100];
+int read_file(record *a)
+{
+                int i=0;
+                FILE *fp;
+                if((fp=fopen("sortedcities.txt","r"))!=NULL)
+                                while(!feof(fp))
+                                {
+                                                fscanf(fp,"%s%d",a[i].name,&a[i].code);
+                                                i++;
+                                }
+                return (i-1);
+}
+void write_file(record *a,int n)
+{
+                int i=0;
+                FILE *fp;
+                if((fp=fopen("sorted_cities.txt","w"))!=NULL)
+                                for(i=0;i<n;i++)
+                                                fprintf(fp,"\n%s\t%d",a[i].name,a[i].code);
+}
+void sort(record *a,int n)
+{
+                int i,j;
+                record t;
+                for(i=1;i<n;i++)
+                {
+                                for(j=0;j<n-i;j++)
+                                {
+                                                if(strcmp(a[j].name,a[j+1].name)>0)
+                                                {
+                                                                t=a[j];
+                                                                a[j]=a[j+1];
+                                                                a[j+1]=t;
+                                                }
+                                }
+                }
+}
+int read_file1(record *a)
+{
+                int i=0;
+                FILE *fp;
+                if((fp=fopen("sorted_cities.txt","r"))!=NULL)
+                                while(!feof(fp))
+                                {
+                                                fscanf(fp,"%s%d",a[i].name,&a[i].code);
+                                                i++;
+                                }
+                return (i-1);
+}
+void b_search(record *a,int n,char key[20])
+{
+                int l,h,mid;
+                l=0;
+                h=n-1;
+                while(h>=l)
+                {
+                                mid=(l+h)/2;
+                                if(strcmp(key,a[mid].name)==0)
+                                {
+                                                printf("\nSTD code:%d\n ",a[mid].code);
+                                                break;
+                                }
+                                else if(strcmp(key,a[mid].name)<0)
+                                                h=mid-1;
+                                else
+                                                l=mid+1;
+                }
+                if(h<l)
+                                printf("\ncity not in list\n");
+}
+main()
+{
+                char key[20];
+                int n,m;
+                n=read_file(city);
+                sort(city,n);
+                write_file(city,n);
+                printf("\nenter city name\n");
+                scanf("%s",key);
+                b_search(city,n,key);
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="studentApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Student</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script>// app.js
+
+var studentApp = angular.module('studentApp', []);
+
+studentApp.controller('StudentController', function($scope) {
+    // Sample student data
+    $scope.students = [
+        { roll_no: 1, student_name: 'John Doe', city: 'Pune' },
+        { roll_no: 2, student_name: 'Jane Smith', city: 'Mumbai' },
+        { roll_no: 3, student_name: 'Bob Johnson', city: 'Pune' },
+        { roll_no: 4, student_name: 'Alice Williams', city: 'Bangalore' },
+        // Add more student data as needed
+    ];
+});
+</script>
+</head>
+<body>
+    <div ng-controller="StudentController">
+        <label>Search Student:</label>
+        <input type="text" ng-model="searchText">
+
+        <table border="1">
+            <tr>
+                <th>Roll No</th>
+                <th>Student Name</th>
+                <th>City</th>
+            </tr>
+            <tr ng-repeat="student in students | filter: searchText">
+                <td>{{ student.roll_no }}</td>
+                <td>{{ student.student_name }}</td>
+                <td>{{ student.city }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+dtb<-function(n)
+{
+  if(n>1)
+  {
+    dtb(as.integer(n/2))
+  }
+  cat(n%%2)
+}
+ 
+dec=10
+print("decimal is : ")
+print(dec)
+print("decimal to binary is :")
+bin=dtb(dec)
+print(bin)

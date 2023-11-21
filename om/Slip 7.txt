@@ -1,0 +1,258 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *left , *right;
+};
+struct bst
+{
+	struct node *root;
+};
+int z = 0 ;
+void create(struct bst *p,int n)
+{
+	struct node *r,*t;
+	if (p->root == NULL) 
+	{
+    	p->root = (struct node*)malloc(sizeof(struct node));
+    	p->root->data = n;
+    	p->root->left = NULL;
+    	p->root->right = NULL;
+	}
+
+	else
+	{
+		r = (struct node *)malloc(sizeof(struct node));
+		r->data = n;
+		r->left = NULL;
+		r->right = NULL;
+		t = p->root;
+	}
+	while(t!=NULL)
+	{
+		if(n>t->data)
+		{
+			if(t->right == NULL)
+			{
+				t->right=r;
+				break;
+			}
+			else
+			{
+				t = t->right;
+			}
+		}
+		else
+		{
+			if(t->left == NULL)
+			{
+				t->left=r;
+				break;
+			}
+			else
+			{
+				t = t->left;
+			}
+		}
+	}
+}
+void preorder(struct node *r)
+{
+	if(r != NULL)
+	{
+		printf("%d  ",r->data);
+		preorder(r->left);	
+		preorder(r->right);
+	}
+}
+void main()
+{
+	struct bst x;
+	int no,c,ch;
+	x.root = NULL;
+	
+	
+	while(1)
+	{
+		printf("1.Create\n");
+		printf("2.preorder\n");
+		printf("3.psotorder\n");
+		printf("4.Exit\n");
+		printf("Enter Your  Choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:
+				printf("enter no\n");
+				scanf("%d",&no);
+				create(&x,no);
+				break;
+			case 2:
+				preorder(x.root);
+				printf("\n");
+				break;
+			case 3:
+				exit(0);
+				break;
+
+			default:
+				printf("Invalid Choice\n");
+		}
+	}
+	
+}
+
+
+
+
+
+
+
+
+#include<stdlib.h>
+#include<conio.h>
+#include<string.h>
+#include<stdio.h>
+struct node
+{
+	int data;
+	struct node *next;
+}
+
+void create(struct node **p,int n)
+{
+	struct node *r,*t;
+	if(*p==NULL)
+	{
+		*p=(struct node*)malloc(1*sizeof(struct node));
+		(*p)->data=n;
+		(*p)->next=NULL;
+	}
+	else
+	{
+	    
+		r=(struct node*)malloc(1*sizeof(struct node));
+     	r->data=n;
+	    r->next=NULL;
+	    t=*p;
+	    while(t->next!=NULL)
+	       {
+		      t=t->next;
+	       }
+	       t->next=r;
+	}	   	
+}
+void display(struct node*p)
+{
+	while(p!=NULL)
+	{
+		printf("%d  ",p->data);
+		p=p->next;
+	}
+}
+int count(struct node*p)
+{
+	int c=0;
+	while(p!=NULL)
+	{
+		c++;
+		p=p->next;
+	}
+	return c;
+}
+int main()
+{
+    int c;
+	struct node *head;
+	head = NULL;
+	create(&head,36);
+	create(&head,56);
+	create(&head,67);
+	create(&head,78);
+	create(&head,12);
+	display(head);
+	c=count(head);
+	printf(" \n %d",c);
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="sybbaApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYBBA Syllabus</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+	var app = angular.module('sybbaApp', ['ngRoute']);
+
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: 'views/subjects.html',
+            controller: 'SubjectsController'
+        })
+        .when('/subject/:id', {
+            templateUrl: 'views/subject-detail.html',
+            controller: 'SubjectDetailController'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+});
+
+app.controller('SubjectsController', function ($scope) {
+    // Sample list of subjects for SYBBA
+    $scope.subjects = [
+        { id: 1, name: 'Subject 1' },
+        { id: 2, name: 'Subject 2' },
+        { id: 3, name: 'Subject 3' },
+        // Add more subjects as needed
+    ];
+});
+
+app.controller('SubjectDetailController', function ($scope, $routeParams) {
+    // Sample syllabus content for each subject
+    var syllabusContent = {
+        1: 'Syllabus content for Subject 1',
+        2: 'Syllabus content for Subject 2',
+        3: 'Syllabus content for Subject 3',
+        // Add more syllabus content as needed
+    };
+
+    var subjectId = $routeParams.id;
+    $scope.syllabus = syllabusContent[subjectId];
+});
+ </script>
+</head>
+<body>
+
+    <div ng-view><h1>SYBBA Subjects</h1>
+
+<ul>
+    <li ng-repeat="subject in subjects">
+        <a href="#/subject/{{subject.id}}">{{subject.name}}</a>
+    </li>
+</ul>
+
+<h1>Subject Detail</h1>
+
+<p>{{ syllabus }}</p>
+
+</div>
+
+</body>
+</html>
+
+
+Employee = data.frame(names =c('Sushant','Rahul','Shiva','Vedant','Krishna'),
+                      Designation=c("Clark","HR","Manager","CEO","Salesman"),
+                      Salary=c(5000,1000,2000,20000,51000),
+                      E_id=c(101,105,102,104,103))
+Employee_sort = Employee[order(Employee$E_id), ]
+print("display details of employees")
+print(Employee_sort)

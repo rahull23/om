@@ -1,0 +1,198 @@
+#include <stdio.h>  
+#include <string.h>  
+  
+#define max 100  
+int top,stack[max];  
+  
+void push(char x)
+{  
+      if(top == max-1){  
+          printf("stack overflow");  
+      }  else {  
+          stack[++top]=x;  
+      }  
+  
+}  
+  
+void pop()
+{  
+      printf("%c",stack[top--]);  
+}  
+  
+  
+main()  
+{  
+   char str[]="India";  
+   int len = strlen(str);  
+   int i;  
+  
+   for(i=0;i<len;i++)  
+        push(str[i]);  
+  
+   for(i=0;i<len;i++)  
+      pop();  
+}
+
+
+
+
+#include<stdio.h>
+#include<string.h>
+main()
+{
+int i,j,n;
+char str[100][100],s[100];
+printf("Enter number of names \n");
+scanf("%d",&n);
+printf("Enter names in any order\n");
+for(i=0;i<n;i++)
+{
+ scanf("%s",str[i]);
+}
+
+
+for(i=0;i<n;i++)
+{
+ for(j=i+1;j<n;j++)
+ {
+   if(strcmp(str[i],str[j])>0)
+   {
+    strcpy(s,str[i]);
+    strcpy(str[i],str[j]);
+    strcpy(str[j],s);
+   }
+  
+ }
+
+}
+printf("\nThe sorted order of alphabets are:\n");
+for(i=0;i<n;i++)
+{
+ printf("%s\n",str[i]);
+}
+
+}
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="bookingApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Plan Booking</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script>
+		// app.js
+
+var bookingApp = angular.module('bookingApp', []);
+
+bookingApp.controller('BookingController', function($scope) {
+    $scope.bookingInfo = {};
+    $scope.passengers = [];
+
+    $scope.addPassenger = function() {
+        // Add a new passenger to the list
+        $scope.passengers.push({
+            name: $scope.bookingInfo.passengerName,
+            gender: $scope.bookingInfo.passengerGender
+        });
+
+        // Clear passenger input fields
+        $scope.bookingInfo.passengerName = '';
+        $scope.bookingInfo.passengerGender = '';
+    };
+
+    $scope.bookPlan = function() {
+        // Generate e-Ticket
+        $scope.bookingInfo.eTicket = generateETicket();
+
+        // You can send the bookingInfo to a server for further processing (e.g., store in a database).
+
+        // Clear the form
+        $scope.bookingInfo = {};
+        $scope.passengers = [];
+    };
+
+    function generateETicket() {
+        // Generate a simple e-Ticket string for demonstration purposes
+        return 'E-Ticket\n\n' +
+               'Name: ' + $scope.bookingInfo.name + '\n' +
+               'Address: ' + $scope.bookingInfo.address + '\n' +
+               'Contact No.: ' + $scope.bookingInfo.contactNo + '\n' +
+               'Date of Booking: ' + $scope.bookingInfo.dateOfBooking + '\n' +
+               'Date of Journey: ' + $scope.bookingInfo.dateOfJourney + '\n' +
+               'Number of Passengers: ' + $scope.passengers.length + '\n' +
+               'Passenger Names: ' + $scope.passengers.map(passenger => passenger.name).join(', ') + '\n';
+    }
+});
+
+	</script>
+</head>
+<body>
+    <div ng-controller="BookingController">
+        <!-- Your form and display content will go here -->
+    </div>
+	<!-- Inside the <div ng-controller="BookingController"> -->
+
+<form ng-submit="bookPlan()">
+    <label>Name:</label>
+    <input type="text" ng-model="bookingInfo.name" required><br>
+
+    <label>Address:</label>
+    <input type="text" ng-model="bookingInfo.address" required><br>
+
+    <label>Contact No.:</label>
+    <input type="text" ng-model="bookingInfo.contactNo" required><br>
+
+    <label>Gender:</label>
+    <select ng-model="bookingInfo.gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select><br>
+
+    <label>Date of Booking:</label>
+    <input type="date" ng-model="bookingInfo.dateOfBooking" required><br>
+
+    <label>Date of Journey:</label>
+    <input type="date" ng-model="bookingInfo.dateOfJourney" required><br>
+
+    <label>Number of Passengers:</label>
+    <input type="number" ng-model="bookingInfo.numPassengers" required><br>
+
+    <label>Passenger Name:</label>
+    <input type="text" ng-model="bookingInfo.passengerName" required><br>
+
+    <label>Passenger Gender:</label>
+    <select ng-model="bookingInfo.passengerGender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select><br>
+
+    <button type="button" ng-click="addPassenger()">Add Passenger</button>
+    <button type="submit">Book Plan</button>
+</form>
+
+<hr>
+
+<h2>e-Ticket</h2>
+<pre>{{ bookingInfo.eTicket }}</pre>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+f1 = factor (Sample (LETTERS, size=6, replace = TRUE)
+f2 = factor (Sample (LETTERS, size=6, replace = TRUE)
+print("Original Factor")
+print (f1)
+print (f2)
+f = factor (c(levels (f1) [f1], levels (f2) [f2])) 
+print("After Concatenate factor becomes :") 
+print (f)
+

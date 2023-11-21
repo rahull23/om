@@ -1,0 +1,171 @@
+#include <stdio.h>
+
+struct tnode
+{
+    int data;
+    struct tnode *right;
+    struct tnode *left;
+};
+
+struct tnode *CreateBST(struct tnode *, int);
+void Inorder(struct tnode *);
+void Preorder(struct tnode *);
+void Postorder(struct tnode *);
+
+int main()
+{
+    struct tnode *root = NULL;
+    int choice, item, n, i;
+    do
+    {
+        printf("\n\nBinary Search Tree Operations\n");
+        printf("\n1. Creation of BST");
+        printf("\n2. Traverse in Inorder");
+        printf("\n3. Traverse in Preorder");
+        printf("\n4. Traverse in Postorder");
+        printf("\n5. Exit\n");
+        printf("\nEnter Choice : ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+        case 1:
+            root = NULL;
+            printf("\n\nBST for How Many Nodes ? ");
+            scanf("%d",&n);
+            for(i = 1; i <= n; i++)
+            {
+                printf("\nEnter data for node %d : ", i);
+                scanf("%d",&item);
+                root = CreateBST(root,item);
+            }
+            printf("\nBST with %d nodes is ready to Use!!\n", n);
+            break;
+        case 2:
+            printf("\nBST Traversal in INORDER \n");
+            Inorder(root);
+            break;
+        case 3:
+            printf("\nBST Traversal in PREORDER \n");
+            Preorder(root);
+            break;
+        case 4:
+            printf("\nBST Traversal in POSTORDER \n");
+            Postorder(root);
+            break;
+        case 5:
+            printf("\n\n Terminating \n\n");
+            break;
+        default:
+            printf("\n\nInvalid Option !!! Try Again !! \n\n");
+            break;
+        }
+    } while(choice != 5);
+    return 0;
+}
+
+struct tnode *CreateBST(struct tnode *root, int item)
+{
+    if(root == NULL)
+    {
+        root = (struct tnode *)malloc(sizeof(struct tnode));
+        root->left = root->right = NULL;
+        root->data = item;
+        return root;
+    }
+    else
+    {
+        if(item < root->data )
+            root->left = CreateBST(root->left,item);
+        else if(item > root->data )
+            root->right = CreateBST(root->right,item);
+        else
+            printf(" Duplicate Element !! Not Allowed !!!");
+
+        return(root);
+    }
+}
+
+void Inorder(struct tnode *root)
+{
+    if( root != NULL)
+    {
+        Inorder(root->left);
+        printf(" %d ",root->data);
+        Inorder(root->right);
+    }
+}
+
+void Preorder(struct tnode *root)
+{
+    if( root != NULL)
+    {
+        printf(" %d ",root->data);
+        Preorder(root->left);
+        Preorder(root->right);
+    }
+}
+
+void Postorder(struct tnode *root)
+{
+    if( root != NULL)
+    {
+        Postorder(root->left);
+        Postorder(root->right);
+        printf(" %d ",root->data);
+    }
+}
+
+
+ <!-- Include necessary libraries and AngularJS scripts -->
+<html ng-app="onlineSchoolApp">
+<head>
+  <!-- Head content -->
+</head>
+<body ng-controller="CourseController">
+  <!-- Header, navigation, etc. -->
+
+  <div ng-view></div> <!-- This div will hold different views based on routing -->
+
+  <!-- Footer content -->
+</body>
+</html>angular.module('onlineSchoolApp', ['ngRoute'])
+  .config(function($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: 'templates/course-list.html',
+        controller: 'CourseListController'
+      })
+      .when('/courses/:id', {
+        templateUrl: 'templates/course-details.html',
+        controller: 'CourseDetailsController'
+      })
+      // Add more routes for authentication, lessons, profiles, etc.
+      .otherwise({ redirectTo: '/' });
+  })
+  // Define controllers, services, factories, etc.
+  .controller('CourseListController', function($scope, CourseService) {
+    $scope.courses = CourseService.getAllCourses();
+    // Logic for displaying courses
+  })
+  .controller('CourseDetailsController', function($scope, $routeParams, CourseService) {
+    const courseId = $routeParams.id;
+    $scope.course = CourseService.getCourseById(courseId);
+    // Logic for displaying course details, lessons, etc.
+  })
+  .service('CourseService', function() {
+    // Service to handle course-related data retrieval and manipulation
+  });
+
+a=list("deep","gaurav","harshal","sameer")
+print("original list is ")
+print(a)
+names(a)<-c("a","b","c","d")
+print("names of list : ")
+print(a)
+ 
+a[5]="santosh"
+print(a)
+a[1]=NULL
+print(a)
+a[2]="chirag"
+print(a

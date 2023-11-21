@@ -1,0 +1,223 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *left , *right;
+};
+struct bst
+{
+	struct node *root;
+};
+int z = 0 ;
+void create(struct bst *p,int n)
+{
+	struct node *r,*t;
+	if (p->root == NULL) 
+	{
+    	p->root = (struct node*)malloc(sizeof(struct node));
+    	p->root->data = n;
+    	p->root->left = NULL;
+    	p->root->right = NULL;
+	}
+
+	else
+	{
+		r = (struct node *)malloc(sizeof(struct node));
+		r->data = n;
+		r->left = NULL;
+		r->right = NULL;
+		t = p->root;
+	}
+	while(t!=NULL)
+	{
+		if(n>t->data)
+		{
+			if(t->right == NULL)
+			{
+				t->right=r;
+				break;
+			}
+			else
+			{
+				t = t->right;
+			}
+		}
+		else
+		{
+			if(t->left == NULL)
+			{
+				t->left=r;
+				break;
+			}
+			else
+			{
+				t = t->left;
+			}
+		}
+	}
+}
+void inorder(struct node *r)
+{
+	if(r != NULL)
+	{
+		inorder(r->left);
+		printf("%d  ",r->data);
+		inorder(r->right);
+	}
+}
+void postorder(struct node *r)
+{
+	if(r != NULL)
+	{
+		postorder(r->left);	
+		postorder(r->right);
+		printf("%d  ",r->data);
+	}
+}
+void main()
+{
+	struct bst x;
+	int no,c,ch;
+	x.root = NULL;
+	
+	
+	while(1)
+	{
+		printf("1.Create\n");
+		printf("2.inorder\n");
+		printf("3.psotorder\n");
+		printf("4.Exit\n");
+		printf("Enter Your  Choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:
+				printf("enter no\n");
+				scanf("%d",&no);
+				create(&x,no);
+				break;
+			case 2:
+				inorder(x.root);
+				printf("\n");
+				break;
+			case 3:
+				postorder(x.root);
+				printf("\n");
+				break;
+			case 4:
+				exit(0);
+				break;
+
+			default:
+				printf("Invalid Choice\n");
+		}
+	}
+	
+}
+
+
+
+#include<stdio.h>
+
+int main() {
+    int poly1[6][2], poly2[6][2], term1, term2, match, proceed, i, j;
+    
+    printf("Enter the number of terms in the first polynomial: ");
+    scanf("%d", &term1);
+
+    printf("Enter the number of terms in the second polynomial: ");
+    scanf("%d", &term2);
+
+    printf("Enter the coeff and expo of the first polynomial:\n");
+    for (i = 0; i < term1; i++) {
+        scanf("%d %d", &poly1[i][0], &poly1[i][1]);
+    }
+
+    printf("Enter the coeff and expo of the second polynomial:\n");
+    for (i = 0; i < term2; i++) {
+        scanf("%d %d", &poly2[i][0], &poly2[i][1]);
+    }
+
+    printf("The resultant polynomial after addition:\n");
+    
+    for (i = 0; i < term1; i++) {
+        match = 0;
+
+        for (j = 0; j < term2; j++) {
+            if (poly1[i][1] == poly2[j][1]) {
+                printf("%d %d\n", poly1[i][0] + poly2[j][0], poly1[i][1]);
+                match = 1;
+            }
+        }
+
+        if (match == 0) {
+            printf("%d %d\n", poly1[i][0], poly1[i][1]);
+        }
+    }
+
+    for (i = 0; i < term2; i++) {
+        proceed = 1;
+
+        for (j = 0; j < term1; j++) {
+            if (poly2[i][1] == poly1[j][1]) {
+                proceed = 0;
+            }
+        }
+
+        if (proceed == 1) {
+            printf("%d %d\n", poly2[i][0], poly2[i][1]);
+        }
+    }
+
+    return 0;
+}
+
+
+
+
+
+<html>
+<head>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+     <script>
+          let app = angular.module("a",[]);
+          app.controller("b",function($scope)
+                    {
+                      $scope.student = [{'name':'SBI', 'mcode':383874284, 'icode':3324234324, 'add':'sjkdns'},
+                                        {'name':'RBI', 'mcode':324324324, 'icode':5234423423, 'add':'sjkdns'},
+                                        {'name':'MC', 'mcode':56456456, 'icode':63242423, 'add':'sjkdns'},
+                                        {'name':'DS', 'mcode':65766765, 'icode':712421324, 'add':'sjkdns'}];
+
+                      });
+     </script>
+</head>
+<body ng-app="a">
+<table border = 2 ng-controller="b">
+        <tr>
+             <th>Bank name</th>
+             <th>MICR code</th>
+             <th>IFC code</th>
+             <th>Address</th>
+        </tr>
+        <tr ng-repeat="x in student">
+            <td>{{x.name}}</td>
+            <td>{{x.mcode}}</td>
+            <td>{{x.icode}}</td>
+            <td>{{x.add}}</td>
+        </tr>
+</table>
+</body>
+</html>
+
+
+
+print ("First 10 letters in lowers case:")
+t = head(letters , 10)
+print(t)
+print ("Last 10 letters in Upper Case:")
+t = tail(LETTERS, 10)
+print(t) 
+print("Letters between 22nd and 24th letters in upper Case:")
+l = tail(LETTERS,[22:24])  
+print(l)

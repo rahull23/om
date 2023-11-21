@@ -1,0 +1,227 @@
+#include<stdio.h>
+#include<math.h>
+
+int a=0,b=0;
+static int a,leaf,intc,rootc;
+struct Btree
+{
+struct Btree *lchild;
+int data;
+struct Btree *rchild;
+};
+typedef struct Btree NODE;
+NODE *root;
+void count(NODE *h)
+{ a++;
+if(h==root)
+rootc++;
+else if(h->lchild==NULL && h->rchild==NULL)
+leaf++;
+else if(h->lchild!=NULL || h->rchild!=NULL)
+intc++;
+
+}
+
+NODE *getnode()
+{
+NODE *temp;
+temp=(NODE*)malloc(sizeof(NODE));
+printf("\n\n Enter the data : ");
+scanf("%d",&temp->data);
+temp->lchild=NULL;
+temp->rchild=NULL;
+return(temp);
+}
+
+NODE *create()
+{
+NODE *temp,*ptr;
+char ch;
+root=NULL;
+do
+{
+temp=getnode();
+if(root==NULL)
+root=temp;
+else
+{
+ptr=root;
+while(ptr!=NULL)
+{
+if(ptr->data>temp->data)
+{
+if(ptr->lchild==NULL)
+{
+ptr->lchild=temp;
+break;
+}
+else
+ptr=ptr->lchild;
+}
+else
+{
+if(ptr->rchild==NULL)
+{
+ptr->rchild=temp;
+break;
+}
+else
+ptr=ptr->rchild;
+}
+}//while
+} //else
+printf("\n Add More (Y/N)? : ");
+ch=getche();
+}while(ch=='Y' || ch=='y');
+return(root);
+}
+void inorder(NODE *h)
+{
+// count(h);
+if(h!=NULL)
+{
+inorder(h->lchild);
+count(h);
+printf("\t%d",h->data);
+inorder(h->rchild);
+}
+}
+main()
+{
+NODE *header;
+clrscr();
+header=create();
+printf("\n");
+inorder(header);
+printf("\n The total no. of nodes are : %d",a);
+printf("\n\n The total no. of leaf nodes are : %d",leaf);
+printf("\n no of interior niode %d",intc);
+printf("\nroot=%d",rootc);
+
+}
+
+
+
+
+
+#include<stdio.h>
+#include<conio.h>
+ void disp();
+ void mergesort(int ,int, int);
+ void msortdiv(int,int);
+ int a[50],n;
+void main()
+{
+int i;
+clrscr();
+printf("Enter the n value\n");
+scanf("%d",&n);
+printf("Enter the elements for an array\n");
+for(i=0;i<n;i++)
+{
+scanf("%d",&a[i]);
+}
+msortdiv(0,n-1);
+printf("After sorting the elements are:\n");
+for(i=0;i<n;i++)
+printf("%d\t",a[i]);
+getch();
+}
+void mergesort(int low, int mid,int high)
+{
+int t[50],i,j,k;
+i=low;
+j=mid+1;
+k=low;
+while((i<=mid) && (j<=high))
+{
+if (a[i]>=a[j])
+t[k++]=a[j++];
+else
+t[k++]=a[i++];
+}
+while(i<=mid)
+t[k++]=a[i++];
+
+while(j<=high)
+t[k++]=a[j++];
+for(i=low;i<=high;i++)
+a[i]=t[i];
+}
+void msortdiv(int low, int high)
+{
+int mid;
+if(low!=high)
+{
+mid=((low+high)/2);
+msortdiv(low,mid);
+msortdiv(mid+1,high);
+mergesort(low,mid,high);
+}
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="teacherApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Profiles</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script>
+		// app.js
+
+var teacherApp = angular.module('teacherApp', []);
+
+teacherApp.controller('TeacherController', function($scope) {
+    // Sample teacher data
+    $scope.teachers = [
+        {
+            name: 'John Smith',
+            course: 'SYBBA (CA)',
+            subject: 'Database Management',
+            description: 'Experienced teacher in the field of database management.',
+            photo: 'path/to/john_smith_photo.jpg'
+        },
+        {
+            name: 'Jane Doe',
+            course: 'SYBBA (CA)',
+            subject: 'Software Engineering',
+            description: 'Passionate about teaching software engineering concepts.',
+            photo: 'path/to/jane_doe_photo.jpg'
+        },
+        // Add more teacher data as needed
+    ];
+});
+
+	</script>
+</head>
+<body>
+    <div ng-controller="TeacherController">
+        <h2>Teacher Profiles - SYBBA (CA)</h2>
+
+        <div ng-repeat="teacher in teachers | filter: { course: 'SYBBA (CA)' }">
+            <div>
+                <img ng-src="{{ teacher.photo }}" alt="{{ teacher.name }}">
+
+                <h3>{{ teacher.name }}</h3>
+                <p>{{ teacher.subject }}</p>
+                <p>{{ teacher.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+
+a=c(1,2,3)
+b=c(3,4,5)
+d=c(6,7,8)
+combine<-cbind(a,b,d)
+print("content of matrix is : ")
+print(combine)

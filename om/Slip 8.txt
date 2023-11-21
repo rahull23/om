@@ -1,0 +1,266 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *left , *right;
+};
+struct bst
+{
+	struct node *root;
+};
+int z = 0 ;
+void create(struct bst *p,int n)
+{
+	struct node *r,*t;
+	if (p->root == NULL) 
+	{
+    	p->root = (struct node*)malloc(sizeof(struct node));
+    	p->root->data = n;
+    	p->root->left = NULL;
+    	p->root->right = NULL;
+	}
+
+	else
+	{
+		r = (struct node *)malloc(sizeof(struct node));
+		r->data = n;
+		r->left = NULL;
+		r->right = NULL;
+		t = p->root;
+	}
+	while(t!=NULL)
+	{
+		if(n>t->data)
+		{
+			if(t->right == NULL)
+			{
+				t->right=r;
+				break;
+			}
+			else
+			{
+				t = t->right;
+			}
+		}
+		else
+		{
+			if(t->left == NULL)
+			{
+				t->left=r;
+				break;
+			}
+			else
+			{
+				t = t->left;
+			}
+		}
+	}
+}
+void Search(struct node *r)
+{
+	int no ;
+	printf("Enter no to search ");
+	scanf("%d",&no);
+
+	if(r != NULL)
+	{
+		if(no == r->data )
+		{
+			printf("No is found");
+			break ;
+		}
+		preorder(r->left);	
+		preorder(r->right);
+	}
+	else
+	{
+	printf("No is notg found ");
+	}
+}
+void preorder(struct node *r)
+{
+	if(r != NULL)
+	{
+		printf("%d  ",r->data);
+		preorder(r->left);	
+		preorder(r->right);
+	}
+}
+
+void main()
+{
+	struct bst x;
+	int no,c,ch;
+	x.root = NULL;
+	
+	
+	while(1)
+	{
+		printf("1.Create\n");
+		printf("2.preorder\n");
+		printf("3.psotorder\n");
+		printf("4.Exit\n");
+		printf("Enter Your  Choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:
+				printf("enter no\n");
+				scanf("%d",&no);
+				create(&x,no);
+				break;
+			case 2:
+				preorder(x.root);
+				printf("\n");
+				break;
+			case 3:
+				search(x.root);
+				printf("\n");
+				break;
+			
+			case 4:
+				exit(0);
+				break;
+
+			default:
+				printf("Invalid Choice\n");
+		}
+	}
+	
+}
+
+
+
+
+
+#include<stdio.h>
+int main ()
+{
+	int a[100],n,i,j,t,k;
+	printf("Enter no\n ");
+	scanf("%d",&n);
+	printf("Enter element");
+	for(i=0;i<n;i++)
+		{
+			scanf("%d",&a[i]);
+		}
+	printf("Display elements before sorted \n ");
+	for(i=0;i<n;i++)
+		{
+			printf("%d",a[i]);
+			printf("\n");
+		}
+	
+	for(i=0;i<=n-2;i++)
+		{
+			for(j=i+1;j<=n-1;j++)
+				{
+					if(a[i]>a[j])
+						{
+							t=a[i];
+							a[i]=a[j];
+							for(k=j;k>i;k--)
+							{
+								a[k]=a[k-1];							
+							}				
+							a[k+1]=t;		
+						}
+				}
+		}
+	printf("Display elements after Sorted \n");
+	for(i=0;i<n;i++)
+		{
+			printf("%d \n",a[i]);
+		}
+	return 0 ;
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html ng-app="studentApp">
+<head>
+    <title>Student Registration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body ng-controller="studentController">
+
+    <h2>Student Registration Form</h2>
+
+    <form name="registrationForm" ng-submit="submitForm()">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" ng-model="student.firstName" ng-pattern="/^[a-zA-Z]+$/"
+            required />
+
+        <div ng-show="registrationForm.firstName.$error.pattern">
+            Please enter a valid first name (only alphabets allowed).
+        </div>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" ng-model="student.lastName" ng-pattern="/^[a-zA-Z]+$/"
+            required />
+
+        <div ng-show="registrationForm.lastName.$error.pattern">
+            Please enter a valid last name (only alphabets allowed).
+        </div>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" ng-model="student.age" ng-min="18" ng-max="50" required />
+
+        <div ng-show="registrationForm.age.$error.min || registrationForm.age.$error.max">
+            Age should be between 18 and 50.
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div ng-show="greetingMessage">
+        <h3>{{greetingMessage}}</h3>
+    </div>
+
+    <script>
+        var app = angular.module('studentApp', []);
+
+        app.controller('studentController', function ($scope, $http) {
+            $scope.student = {};
+            $scope.greetingMessage = '';
+
+            $scope.submitForm = function () {
+                if ($scope.registrationForm.$valid) {
+                    // Perform AJAX request to get the current time
+                    $http.get('https://worldtimeapi.org/api/ip')
+                        .then(function (response) {
+                            var currentTime = new Date(response.data.utc_datetime);
+                            var hours = currentTime.getHours();
+
+                            if (hours >= 0 && hours < 12) {
+                                $scope.greetingMessage = 'Good Morning, ' + $scope.student.firstName + '!';
+                            } else if (hours >= 12 && hours < 18) {
+                                $scope.greetingMessage = 'Good Afternoon, ' + $scope.student.firstName + '!';
+                            } else {
+                                $scope.greetingMessage = 'Good Evening, ' + $scope.student.firstName + '!';
+                            }
+                        });
+                }
+            };
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+a=c(10,20, 10, 10, 40, 50, 20, 30) 
+b=c(10,30, 10, 20, 0, 50, 30, 30) 
+Print ("Orignal Dato frame:") 
+ab = data.frame(a,b)
+print (ab)
+print (Duplicate Dato elements of the same data frame:")
+print (duplicate (ab))
+print (Unique rows of the said date frame:")
+print (Unique (ab))

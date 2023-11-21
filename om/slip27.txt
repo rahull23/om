@@ -1,0 +1,187 @@
+#include <stdio.h>  
+  
+# define max 6  
+int queue[max];  // array declaration  
+int front=-1;  
+int rear=-1;  
+// function to insert an element in a circular queue  
+void enqueue(int element)  
+{  
+    if(front==-1 && rear==-1)   // condition to check queue is empty  
+    {  
+        front=0;  
+        rear=0;  
+        queue[rear]=element;  
+    }  
+    else if((rear+1)%max==front)  // condition to check queue is full  
+    {  
+        printf("Queue is overflow..");  
+    }  
+    else  
+    {  
+        rear=(rear+1)%max;       // rear is incremented  
+        queue[rear]=element;     // assigning a value to the queue at the rear position.  
+    }  
+}  
+  
+// function to delete the element from the queue  
+int dequeue()  
+{  
+    if((front==-1) && (rear==-1))  // condition to check queue is empty  
+    {  
+        printf("\nQueue is underflow..");  
+    }  
+ else if(front==rear)  
+{  
+   printf("\nThe dequeued element is %d", queue[front]);  
+   front=-1;  
+   rear=-1;  
+}   
+else  
+{  
+    printf("\nThe dequeued element is %d", queue[front]);  
+   front=(front+1)%max;  
+}  
+}  
+// function to display the elements of a queue  
+void display()  
+{  
+    int i=front;  
+    if(front==-1 && rear==-1)  
+    {  
+        printf("\n Queue is empty..");  
+    }  
+    else  
+    {  
+        printf("\nElements in a Queue are :");  
+        while(i<=rear)  
+        {  
+            printf("%d,", queue[i]);  
+            i=(i+1)%max;  
+        }  
+    }  
+}  
+int main()  
+{  
+    int choice=1,x;   // variables declaration  
+      
+    while(choice<4 && choice!=0)   // while loop  
+    {  
+    printf("\n Press 1: Insert an element");  
+    printf("\nPress 2: Delete an element");  
+    printf("\nPress 3: Display the element");  
+    printf("\nEnter your choice");  
+    scanf("%d", &choice);  
+      
+    switch(choice)  
+    {  
+          
+        case 1:  
+      
+        printf("Enter the element which is to be inserted");  
+        scanf("%d", &x);  
+        enqueue(x);  
+        break;  
+        case 2:  
+        dequeue();  
+        break;  
+        case 3:  
+        display();  
+  
+    }}  
+    return 0;  
+}
+ <!DOCTYPE html>
+<html ng-app="recipeBookApp">
+<head>
+  <title>Recipe Book</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="RecipeController">
+  <h1>Recipe Book</h1>
+
+  <ul>
+    <li ng-repeat="recipe in recipes">
+      <a href="#/recipes/{{ recipe.id }}">{{ recipe.name }}</a>
+    </li>
+  </ul>
+
+  <div ng-view></div> <!-- This div will hold different views based on routing -->
+
+  <form ng-submit="addRecipe()">
+    <label for="recipeName">Recipe Name:</label>
+    <input type="text" id="recipeName" ng-model="newRecipe.name" required>
+
+    <label for="recipeIngredients">Ingredients:</label>
+    <textarea id="recipeIngredients" ng-model="newRecipe.ingredients" required></textarea>
+
+    <button type="submit">Add Recipe</button>
+  </form>
+</body>
+</html>
+ angular.module('recipeBookApp', ['ngRoute'])
+  .config(function($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: 'templates/recipe-list.html',
+        controller: 'RecipeListController'
+      })
+      .when('/recipes/:id', {
+        templateUrl: 'templates/recipe-details.html',
+        controller: 'RecipeDetailsController'
+      })
+      .otherwise({ redirectTo: '/' });
+  })
+  .controller('RecipeListController', function($scope, RecipeService) {
+    $scope.recipes = RecipeService.getRecipes();
+  })
+  .controller('RecipeDetailsController', function($scope, $routeParams, RecipeService) {
+    const recipeId = $routeParams.id;
+    $scope.recipe = RecipeService.getRecipeById(recipeId);
+  })
+  .controller('RecipeController', function($scope, RecipeService) {
+    $scope.newRecipe = {};
+
+    $scope.addRecipe = function() {
+      RecipeService.addRecipe($scope.newRecipe);
+      $scope.newRecipe = {}; // Clear the form
+    };
+  })
+  .service('RecipeService', function() {
+    const recipes = [
+      { id: 1, name: 'Pasta Carbonara', ingredients: 'Spaghetti, Eggs, Pancetta, Parmesan, Black Pepper' },
+      { id: 2, name: 'Chicken Stir-Fry', ingredients: 'Chicken, Broccoli, Bell Peppers, Soy Sauce, Ginger' },
+      // Add more recipes here
+    ];
+
+    this.getRecipes = function() {
+      return recipes;
+    };
+
+    this.getRecipeById = function(id) {
+      return recipes.find(recipe => recipe.id == id);
+    };
+
+    this.addRecipe = function(newRecipe) {
+      newRecipe.id = recipes.length + 1;
+      recipes.push(newRecipe);
+    };
+  });
+
+
+
+btd <- function(b_string)
+{
+  d_no <- 0
+  b_digit <-strsplit(b_string,"")[[1]]
+  b_digit <- as.integer(b_digit)
+  n<-length(b_digit)
+  for (i in 1:n) {
+    d_no <-d_no + b_digit[i]*2^(n-i)
+  }
+  return(d_no)
+}
+b_no <-as.character(readline(prompt = "Enter a binary : "))
+print(paste(b_no,"binary to decimal is : ",btd(b_no)))

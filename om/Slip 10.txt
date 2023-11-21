@@ -1,0 +1,175 @@
+#include<stdio.h>
+#include<stdlib.h>
+    struct node
+{
+    int key;
+    struct node *left, *right;
+};
+    struct node *newNode(int item)
+{
+    struct node *temp =  (struct node *)malloc(sizeof(struct node));
+    temp->key = item;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+ void inorder(struct node *root)
+{
+    if (root != NULL)
+    {
+	inorder(root->left);
+	printf("%d \n", root->key);
+	inorder(root->right);
+    }
+}
+ struct node* insert(struct node* node, int key)
+{
+    if (node == NULL) return newNode(key);
+   if (key < node->key)
+	node->left  = insert(node->left, key);
+    else if (key > node->key)
+	node->right = insert(node->right, key);
+    return node;
+}
+int main()
+{
+    struct node *root = NULL;
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 70);
+    insert(root, 60);
+    insert(root, 80);
+    inorder(root);
+	return 0;
+}
+
+
+
+#include<stdio.h>
+#include<math.h>
+void DisplayArray(int arr[],int n)
+{
+ int i;
+ for(i=0;i<n;i++)
+ printf(" %d ",arr[i]);
+}
+void Generate(int *arr, int n)
+{
+ int i;
+ for(i=0;i<n;i++)
+ arr[i]=rand()%100;
+}
+void InsertionSort(int arr[], int n)
+{
+ int Rvalue,i,j;
+ for(i=1;i<n;i++)
+ {
+ Rvalue=arr[i];
+ j=i-1;
+ 
+ while( j>=0 && arr[j]>Rvalue)
+ {
+  arr[j+1]=arr[j];
+  j=j-1;
+ }
+ arr[j+1]=Rvalue;
+ }
+}
+void main()
+{
+ int arr[100],n;
+ printf("\n Enter the size of array:- ");
+ scanf("%d",&n);
+ Generate(arr,n); 
+ printf("\n The random array: ");
+ DisplayArray(arr,n);
+ InsertionSort(arr,n);
+ printf("\n The sorted array: ");
+ DisplayArray(arr,n); 
+printf("\n");
+}
+
+
+<!DOCTYPE html>
+<html ng-app="hotelApp">
+<head>
+    <title>Pune Top Hotels</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.min.js"></script>
+</head>
+<body>
+
+    <div ng-view><h2>Top Hotels in Pune</h2>
+
+<ul>
+    <li ng-repeat="hotel in hotels">
+        <a ng-click="viewDetails(hotel.id)">{{hotel.name}}</a>
+    </li>
+</ul>
+<h2>{{hotel.name}}</h2>
+
+<p><strong>Address:</strong> {{hotel.address}}</p>
+<p><strong>Contact:</strong> {{hotel.contact}}</p>
+</div>
+
+    <script>
+        var app = angular.module('hotelApp', ['ngRoute']);
+
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'hotel-list.html',
+                    controller: 'HotelListController'
+                })
+                .when('/hotel/:id', {
+                    templateUrl: 'hotel-details.html',
+                    controller: 'HotelDetailsController'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+        });
+
+        app.controller('HotelListController', function ($scope, $location) {
+            $scope.hotels = [
+                { id: 1, name: 'Hotel A', address: 'Address A, Pune', contact: '123-456-7890' },
+                { id: 2, name: 'Hotel B', address: 'Address B, Pune', contact: '987-654-3210' },
+                { id: 3, name: 'Hotel C', address: 'Address C, Pune', contact: '555-123-4567' },
+                { id: 4, name: 'Hotel D', address: 'Address D, Pune', contact: '111-222-3333' },
+                { id: 5, name: 'Hotel E', address: 'Address E, Pune', contact: '444-555-6666' }
+            ];
+
+            $scope.viewDetails = function (hotelId) {
+                $location.path('/hotel/' + hotelId);
+            };
+        });
+
+        app.controller('HotelDetailsController', function ($scope, $routeParams) {
+            var hotelId = $routeParams.id;
+            // Retrieve hotel details based on hotelId (can be fetched from a server)
+            // For simplicity, using a hardcoded object here
+            $scope.hotel = {
+                id: hotelId,
+                name: 'Hotel ' + hotelId,
+                address: 'Address ' + hotelId + ', Pune',
+                contact: '123-456-789' + hotelId
+            };
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+L = list("Pure", "Mumbai", "Nagpur", "Solapur", " Solapur", "Noshik")
+
+a) names(L) = c("fi", "f2","f3", "f4", "f5")
+
+b) VL =c("Akola") L=append (L, V1)
+
+c)
+
+d) L[3]="Hydrabad"
